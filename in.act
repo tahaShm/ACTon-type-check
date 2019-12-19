@@ -1,0 +1,43 @@
+actor E(12) {
+    knownactors {
+
+    }
+    actorvars {
+    }
+    msghandler eFunc() {
+
+    }
+
+
+}
+actor D(9) {
+    knownactors {
+        E e;
+        D d;
+    }
+
+    actorvars {
+        int j;
+        int k;
+        string s;
+    }
+
+    msghandler initial() {
+
+    }
+
+    msghandler afunc(boolean b) {
+        print(e);
+        j = k = 2;
+        for (j = 0; j == 10; j = j + 1) {
+
+        }
+    }
+}
+main {
+    D a1(theController):();
+    E a2(theController):();
+    E theController():();
+}
+
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1V65PhgrJx9BWsbX3YRfnrtHr67" />
+  <component name="PropertiesComponent">
+    <property name="$PROJECT_DIR$/src/antlr/acton.g4::/auto-gen" value="false" />
+    <property name="$PROJECT_DIR$/src/antlr/acton.g4::/gen-listener" value="true" />
+    <property name="$PROJECT_DIR$/src/antlr/acton.g4::/gen-visitor" value="false" />
+    <property name="$PROJECT_DIR$/src/antlr/acton.g4::/output-dir" value="C:\Users\Taha\Desktop\compiler_p3\src\main\parsers" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/parsers" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Acton" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="main.Acton" />
+      <module name="compiler_p3" />
+      <option name="PROGRAM_PARAMETERS" value="in.act" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="" />
+      <created>1576560682215</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1576560682215</updated>
+      <workItem from="1576560685134" duration="218000" />
+      <workItem from="1576560953176" duration="962000" />
+      <workItem from="1576561924913" duration="2629000" />
+      <workItem from="1576565407688" duration="30191000" />
+      <workItem from="1576657499759" duration="18769000" />
+      <workItem from="1576739201978" duration="268000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
