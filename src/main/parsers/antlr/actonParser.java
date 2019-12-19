@@ -1622,6 +1622,8 @@ public class actonParser extends Parser {
 	public static class MsgHandlerCallContext extends ParserRuleContext {
 		public MsgHandlerCall handlerCall;
 		public IdentifierContext id;
+		public Token self;
+		public Token sender;
 		public Token dot;
 		public IdentifierContext name;
 		public ExpressionListContext el;
@@ -1674,15 +1676,15 @@ public class actonParser extends Parser {
 			case SELF:
 				{
 				setState(362);
-				match(SELF);
-				instance = new Self();
+				((MsgHandlerCallContext)_localctx).self = match(SELF);
+				instance = new Self(); instance.setLine(((MsgHandlerCallContext)_localctx).self.getLine());
 				}
 				break;
 			case SENDER:
 				{
 				setState(364);
-				match(SENDER);
-				instance = new Sender();
+				((MsgHandlerCallContext)_localctx).sender = match(SENDER);
+				instance = new Sender(); instance.setLine(((MsgHandlerCallContext)_localctx).sender.getLine());
 				}
 				break;
 			default:

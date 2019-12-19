@@ -271,11 +271,19 @@ public class typeCheckerImpl implements Visitor {
     @Override
     public void visit(ActorVarAccess actorVarAccess) {
 
-        if (actorVarAccess.getSelf() != null)
+        if (actorVarAccess.getSelf() != null) {
             actorVarAccess.getSelf().accept(this);
+        }
 
-        if (actorVarAccess.getVariable() != null)
-            actorVarAccess.getVariable().accept(this);
+        if (actorVarAccess.getVariable() != null) {
+            SymbolTableVariableItem varDec = null;
+            try {
+                varDec = (SymbolTableVariableItem) (currentActorTable.get(SymbolTableVariableItem.STARTKEY + actorVarAccess.getVariable().getName()));
+            }
+            catch (ItemNotFoundException e) {
+                System.out.println("variable used in self not defined");
+            }
+        }
     }
 
     @Override
@@ -286,15 +294,6 @@ public class typeCheckerImpl implements Visitor {
         }
         catch (ItemNotFoundException e){
             System.out.println("variable not defined");
-            Type newNoType = new NoType();
-            VarDeclaration newVarDec = new VarDeclaration(identifier, newNoType);
-            SymbolTableLocalVariableItem newVarItem = new SymbolTableLocalVariableItem(newVarDec);
-            try {
-                currentSymbolTable.put(newVarItem);
-            }
-            catch (ItemAlreadyExistsException e2){
-
-            }
         }
 
     }
@@ -374,8 +373,9 @@ public class typeCheckerImpl implements Visitor {
     @Override
     public void visit(MsgHandlerCall msgHandlerCall) {
 
-        if (msgHandlerCall.getInstance() != null)
+        if (msgHandlerCall.getInstance() != null) {
             msgHandlerCall.getInstance().accept(this);
+        }
 
         if (msgHandlerCall.getMsgHandlerName() != null) {
             try {
@@ -412,10 +412,13 @@ public class typeCheckerImpl implements Visitor {
     public void visit(Assign assign) {
         Type rType = null;
         Type lType = null;
+        SymbolTableVariableItem actorVaraccess = null;
 
         if (assign.getlValue() != null) {
+            if (!(assign.getlValue() instanceof Identifier) && !(assign.getlValue() instanceof ActorVarAccess)) {
+                System.out.println("Lvalue must be identifier or actor var access");
+            }
             assign.getlValue().accept(this);
-
             lType = expressionType(assign.getlValue());
         }
 
@@ -430,6 +433,7 @@ public class typeCheckerImpl implements Visitor {
 
     public Type expressionType(Expression expression) {
         Type returnType = null;
+        SymbolTableVariableItem actorVaraccess = null;
 
 
         if (expression instanceof UnaryExpression) {
@@ -493,6 +497,7 @@ public class typeCheckerImpl implements Visitor {
                 returnType = idItem.getType();
             }
             catch (ItemNotFoundException e) {
+                returnType = new NoType();
             }
         }
 
@@ -500,6 +505,17 @@ public class typeCheckerImpl implements Visitor {
         else if (expression instanceof Value)
             returnType = expression.getType();
 
+
+        else if (expression instanceof ActorVarAccess) {
+            try {
+                actorVaraccess = (SymbolTableVariableItem) currentActorTable.get(SymbolTableVariableItem.STARTKEY + ((ActorVarAccess) expression).getVariable().getName());
+            }
+            catch (ItemNotFoundException e) {
+                returnType = new NoType();
+                return returnType;
+            }
+            returnType = actorVaraccess.getType();
+        }
         return returnType;
     }
 }

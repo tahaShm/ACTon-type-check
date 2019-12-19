@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="" />
+    <list default="true" id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/in.act" beforeDir="false" afterPath="$PROJECT_DIR$/in.act" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/compiler_p3/main/visitor/typeCheckerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler_p3/main/visitor/typeCheckerImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/antlr/acton.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/acton.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/parsers/antlr/actonParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/parsers/antlr/actonParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,12 +23,17 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1V65PhgrJx9BWsbX3YRfnrtHr67" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="$PROJECT_DIR$/src/antlr/acton.g4::/auto-gen" value="false" />
     <property name="$PROJECT_DIR$/src/antlr/acton.g4::/gen-listener" value="true" />
     <property name="$PROJECT_DIR$/src/antlr/acton.g4::/gen-visitor" value="false" />
     <property name="$PROJECT_DIR$/src/antlr/acton.g4::/output-dir" value="C:\Users\Taha\Desktop\compiler_p3\src\main\parsers" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/parsers" />
@@ -71,11 +84,22 @@
       <workItem from="1576561924913" duration="2629000" />
       <workItem from="1576565407688" duration="30191000" />
       <workItem from="1576657499759" duration="18769000" />
-      <workItem from="1576739201978" duration="268000" />
+      <workItem from="1576739201978" duration="8764000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

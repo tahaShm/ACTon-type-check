@@ -148,8 +148,8 @@ breakStmt returns [Break b]
 msgHandlerCall returns [MsgHandlerCall handlerCall]
     :   {Expression instance;}
         (id = identifier {instance = $id.id;} |
-        SELF {instance = new Self();} |
-        SENDER {instance = new Sender();}) dot = DOT
+        self = SELF {instance = new Self(); instance.setLine($self.getLine());} |
+        sender = SENDER {instance = new Sender(); instance.setLine($sender.getLine());}) dot = DOT
         name = identifier {$handlerCall = new MsgHandlerCall(instance, $name.id); $handlerCall.setLine($dot.getLine());}
         LPAREN el = expressionList RPAREN {$handlerCall.setArgs($el.expressions);} SEMICOLON
     ;

@@ -26,12 +26,8 @@ actor D(9) {
 
     }
 
-    msghandler afunc(boolean b) {
-        print(e);
-        j = k = 2;
-        for (j = 0; j == 10; j = j + 1) {
-
-        }
+    msghandler afunc(boolean b, string j) {
+        print(self.ki);
     }
 }
 main {
