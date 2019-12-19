@@ -7,13 +7,23 @@ actor E(12) {
     msghandler eFunc() {
 
     }
-
-
 }
+
+actor A(12) {
+    knownactors {
+
+    }
+    actorvars {
+    }
+    msghandler aFunc() {
+
+    }
+}
+
 actor D(9) {
     knownactors {
         E e;
-        D d;
+        A a;
     }
 
     actorvars {
@@ -23,16 +33,17 @@ actor D(9) {
     }
 
     msghandler initial() {
+        aa.dfunc();
 
     }
 
-    msghandler afunc(boolean b) {
+    msghandler dfunc(boolean b) {
         e.eFunc();
     }
 }
 main {
-    D a1(theController):();
-    E a2(theController):();
+    D a1(theController, a):();
+    A a():();
     E theController():();
 }
 

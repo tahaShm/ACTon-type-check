@@ -15,6 +15,7 @@ import main.ast.node.expression.values.StringValue;
 import main.ast.node.expression.values.Value;
 import main.ast.node.statement.*;
 import main.ast.type.Type;
+import main.ast.type.actorType.ActorType;
 import main.ast.type.arrayType.ArrayType;
 import main.ast.type.noType.NoType;
 import main.ast.type.primitiveType.BooleanType;
@@ -30,6 +31,8 @@ import main.symbolTable.symbolTableVariableItem.SymbolTableActorVariableItem;
 import main.symbolTable.symbolTableVariableItem.SymbolTableKnownActorItem;
 import main.symbolTable.symbolTableVariableItem.SymbolTableLocalVariableItem;
 import main.symbolTable.symbolTableVariableItem.SymbolTableVariableItem;
+
+import java.util.ArrayList;
 
 public class typeCheckerImpl implements Visitor {
     SymbolTable currentSymbolTable =  null;
@@ -177,15 +180,15 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(Main mainActors) {
-        SymbolTableMainItem newSymbolMainItem = null;
+        SymbolTableMainItem currentSymbolMainItem = null;
         try {
-            newSymbolMainItem = (SymbolTableMainItem)(SymbolTable.root.get(SymbolTableMainItem.STARTKEY + "main"));
+            currentSymbolMainItem = (SymbolTableMainItem)(SymbolTable.root.get(SymbolTableMainItem.STARTKEY + "main"));
         }
         catch (ItemNotFoundException e){
             System.out.println("error in main");
         }
-        if (newSymbolMainItem != null)
-            currentSymbolTable = newSymbolMainItem.getMainSymbolTable();
+        if (currentSymbolMainItem != null)
+            currentSymbolTable = currentSymbolMainItem.getMainSymbolTable();
 
         if (mainActors.getMainActors() != null) {
             for (ActorInstantiation actorInstantiation : mainActors.getMainActors()) {
@@ -196,23 +199,51 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(ActorInstantiation actorInstantiation) {
+        SymbolTableActorItem currentActorItem = null;
+        ActorDeclaration currentActorDec = null;
+        SymbolTableVariableItem currentKnownActor = null;
+        ArrayList<VarDeclaration> knownActors;
         if (actorInstantiation.getIdentifier() != null) {
 
             try {
-                currentSymbolTable.get(SymbolTableActorItem.STARTKEY + actorInstantiation.getType().toString());
+                currentActorItem = (SymbolTableActorItem)currentSymbolTable.get(SymbolTableActorItem.STARTKEY + actorInstantiation.getType().toString());
             }
             catch (ItemNotFoundException e) {
                 System.out.println("actor instantiation not defined");
             }
         }
 
+        if (currentActorItem != null)
+            currentActorDec = currentActorItem.getActorDeclaration();
 
-        if (actorInstantiation.getKnownActors() != null) {
-            for (Identifier identifier : actorInstantiation.getKnownActors()) {
-                identifier.accept(this);
+        if (currentActorDec != null) {
+            knownActors = currentActorDec.getKnownActors();
+            if (actorInstantiation.getKnownActors().size() != knownActors.size()) {
+                System.out.println("different numbers in actor instantiation");
+            } else {
+                int knownActorIndex = 0;
+                Boolean errorInKnownActor = false;
+                if (actorInstantiation.getKnownActors() != null) {
+                    for (Identifier identifier : actorInstantiation.getKnownActors()) {
+                        identifier.accept(this);
 
+                        try {
+                            currentKnownActor = (SymbolTableVariableItem) (currentSymbolTable.get(SymbolTableVariableItem.STARTKEY + identifier.getName()));
+                        }
+                        catch (ItemNotFoundException e) { }
+
+
+                        if (!currentKnownActor.getVarDeclaration().getType().toString().equals(knownActors.get(knownActorIndex).getType().toString())) {
+                            errorInKnownActor = true;
+                        }
+                        knownActorIndex++;
+                    }
+                    if (errorInKnownActor)
+                        System.out.println("type mismatch in actor instantiation");
+                }
             }
         }
+
 //        if (actorInstantiation.getInitArgs() != null) {
 //            for (Expression expression : actorInstantiation.getInitArgs()) {
 //                expression.accept(this);
@@ -398,27 +429,35 @@ public class typeCheckerImpl implements Visitor {
             Type currentType = null;
             SymbolTable currentActor = null;
             try {
-                currentKnownActorItem = (SymbolTableKnownActorItem)(currentActorTable.get(SymbolTableKnownActorItem.STARTKEY + ((Identifier) msgHandlerCall.getInstance()).getName()));
+                if (!(msgHandlerCall.getInstance() instanceof Self))
+                    currentKnownActorItem = (SymbolTableKnownActorItem)(currentActorTable.get(SymbolTableKnownActorItem.STARTKEY + ((Identifier) msgHandlerCall.getInstance()).getName()));
             }
 
             catch (ItemNotFoundException e){}
-
-            if (currentKnownActorItem != null)
+            if (msgHandlerCall.getInstance() instanceof Self) {
+                Identifier id = new Identifier(currentActorTable.getName());
+                Type curType = new ActorType(id);
+                currentType = curType;
+            }
+            else if (currentKnownActorItem != null) {
                 currentType = currentKnownActorItem.getType();
 
-            try {
-                currentActorItem = (SymbolTableActorItem) (SymbolTable.root.get(SymbolTableActorItem.STARTKEY + currentType.toString()));
+
+                try {
+                    currentActorItem = (SymbolTableActorItem) (SymbolTable.root.get(SymbolTableActorItem.STARTKEY + currentType.toString()));
+                } catch (ItemNotFoundException e) {
+                }
+
+                if (currentActorItem != null)
+                    currentActor = currentActorItem.getActorSymbolTable();
+
+                try {
+                    currentHandler = (SymbolTableHandlerItem) (currentActor.get(SymbolTableHandlerItem.STARTKEY + ((Identifier) msgHandlerCall.getMsgHandlerName()).getName()));
+                } catch (ItemNotFoundException e) {
+                    System.out.println("msg handler does not exist");
+                }
             }
-
-            catch (ItemNotFoundException e){}
-
-            if (currentActorItem != null)
-                currentActor = currentActorItem.getActorSymbolTable();
-
-            try {
-                currentHandler = (SymbolTableHandlerItem) (currentActor.get(SymbolTableHandlerItem.STARTKEY + ((Identifier) msgHandlerCall.getMsgHandlerName()).getName()));
-            }
-            catch (ItemNotFoundException e){
+            else {
                 System.out.println("msg handler does not exist");
             }
         }
