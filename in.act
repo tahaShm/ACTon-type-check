@@ -42,7 +42,7 @@ actor D(9) {
     }
 }
 main {
-    D a1(theController, a):();
+    D a1(theController, a):(self.a, self.b);
     A a():();
     E theController():();
 }

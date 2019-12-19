@@ -38,6 +38,7 @@ public class typeCheckerImpl implements Visitor {
     SymbolTable currentSymbolTable =  null;
     SymbolTable currentActorTable =  null;
     int inLoop = 0;
+    Boolean inMain = false;
     Boolean inInitial = false;
     protected void visitStatement( Statement stat )
     {
@@ -181,6 +182,7 @@ public class typeCheckerImpl implements Visitor {
     @Override
     public void visit(Main mainActors) {
         SymbolTableMainItem currentSymbolMainItem = null;
+        inMain = true;
         try {
             currentSymbolMainItem = (SymbolTableMainItem)(SymbolTable.root.get(SymbolTableMainItem.STARTKEY + "main"));
         }
@@ -195,6 +197,7 @@ public class typeCheckerImpl implements Visitor {
                 actorInstantiation.accept(this);
             }
         }
+        inMain = false;
     }
 
     @Override
@@ -244,11 +247,11 @@ public class typeCheckerImpl implements Visitor {
             }
         }
 
-//        if (actorInstantiation.getInitArgs() != null) {
-//            for (Expression expression : actorInstantiation.getInitArgs()) {
-//                expression.accept(this);
-//            }
-//        }
+        if (actorInstantiation.getInitArgs() != null) {
+            for (Expression expression : actorInstantiation.getInitArgs()) {
+                expression.accept(this);
+            }
+        }
     }
 
     @Override
@@ -330,12 +333,16 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(Self self) {
+        if (inMain)
+            System.out.println("self used in main");
     }
 
     @Override
     public void visit(Sender sender) {
         if (inInitial)
             System.out.println("sender used in initial");
+        if (inMain)
+            System.out.println("sender used in main");
     }
 
     @Override
