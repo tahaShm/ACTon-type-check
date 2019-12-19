@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/in.act" beforeDir="false" afterPath="$PROJECT_DIR$/in.act" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/compiler_p3/main/visitor/typeCheckerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/compiler_p3/main/visitor/typeCheckerImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/antlr/acton.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/antlr/acton.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/parsers/antlr/actonParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/parsers/antlr/actonParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,7 +81,7 @@
       <workItem from="1576561924913" duration="2629000" />
       <workItem from="1576565407688" duration="30191000" />
       <workItem from="1576657499759" duration="18769000" />
-      <workItem from="1576739201978" duration="8764000" />
+      <workItem from="1576739201978" duration="18839000" />
     </task>
     <servers />
   </component>

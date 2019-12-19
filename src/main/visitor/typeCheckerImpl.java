@@ -34,6 +34,8 @@ import main.symbolTable.symbolTableVariableItem.SymbolTableVariableItem;
 public class typeCheckerImpl implements Visitor {
     SymbolTable currentSymbolTable =  null;
     SymbolTable currentActorTable =  null;
+    int inLoop = 0;
+    Boolean inInitial = false;
     protected void visitStatement( Statement stat )
     {
         if( stat == null )
@@ -136,7 +138,9 @@ public class typeCheckerImpl implements Visitor {
         }
 
         if (actorDeclaration.getInitHandler() != null) {
+            inInitial = true;
             actorDeclaration.getInitHandler().accept(this);
+            inInitial = false;
         }
 
         if (actorDeclaration.getMsgHandlers() != null) {
@@ -158,21 +162,11 @@ public class typeCheckerImpl implements Visitor {
         }
         if (newSymbolHandleItem != null)
             currentSymbolTable = newSymbolHandleItem.getHandlerSymbolTable();
-//        if (handlerDeclaration.getArgs() != null) {
-//            for (VarDeclaration varDeclaration : handlerDeclaration.getArgs()) {
-//                varDeclaration.accept(this);
-//            }
-//        }
-
-//        if (handlerDeclaration.getLocalVars() != null) {
-//            for (VarDeclaration varDeclaration : handlerDeclaration.getLocalVars()) {
-//                varDeclaration.accept(this);
-//            }
-//        }
 
         if (handlerDeclaration.getBody() != null) {
             for (Statement statement : handlerDeclaration.getBody()) {
-                statement.accept(this);
+                if (statement != null)
+                    statement.accept(this);
             }
         }
     }
@@ -230,7 +224,12 @@ public class typeCheckerImpl implements Visitor {
     public void visit(UnaryExpression unaryExpression) {
         if (unaryExpression.getOperand() != null) {
             unaryExpression.getOperand().accept(this);
-
+            String operator = unaryExpression.getUnaryOperator().toString();
+            if (operator == "preinc" || operator == "postinc" || operator == "predec" || operator == "postDec"){
+                if (!(unaryExpression.getOperand() instanceof Identifier) && !(unaryExpression.getOperand() instanceof ActorVarAccess)) {
+                    System.out.println("expression of -- or ++ must be lValue");
+                }
+            }
             Type expType = expressionType(unaryExpression);
             unaryExpression.setType(expType);
             if (expType instanceof NoType){
@@ -304,6 +303,8 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(Sender sender) {
+        if (inInitial)
+            System.out.println("sender used in initial");
     }
 
     @Override
@@ -320,7 +321,6 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(Block block) {
-
         if (block.getStatements() != null) {
             for (Statement statement : block.getStatements()) {
                 statement.accept(this);
@@ -345,7 +345,7 @@ public class typeCheckerImpl implements Visitor {
 
     @Override
     public void visit(For loop) {
-
+        inLoop += 1;
         if (loop.getInitialize() != null)
             loop.getInitialize().accept(this);
 
@@ -360,31 +360,67 @@ public class typeCheckerImpl implements Visitor {
 
         if (loop.getBody() != null)
             loop.getBody().accept(this);
+
+        inLoop -= 1;
     }
 
     @Override
     public void visit(Break breakLoop) {
+        if (inLoop < 1)
+            System.out.println("break not in loop");
     }
 
     @Override
     public void visit(Continue continueLoop) {
+        if (inLoop < 1)
+            System.out.println("continue not in loop");
     }
 
     @Override
     public void visit(MsgHandlerCall msgHandlerCall) {
-
         if (msgHandlerCall.getInstance() != null) {
             msgHandlerCall.getInstance().accept(this);
+            SymbolTableVariableItem inst = null;
+            try {
+                if (!(msgHandlerCall.getInstance() instanceof Sender || msgHandlerCall.getInstance() instanceof Self))
+                    inst = (SymbolTableVariableItem) currentActorTable.get(SymbolTableVariableItem.STARTKEY + ((Identifier) msgHandlerCall.getInstance()).getName());
+            }
+            catch (ItemNotFoundException e) { }
+            if (!(inst instanceof SymbolTableKnownActorItem) && !(msgHandlerCall.getInstance() instanceof Sender) && !(msgHandlerCall.getInstance() instanceof Self)) {
+                System.out.println("actor var not found (in msgHandler)");
+            }
         }
 
         if (msgHandlerCall.getMsgHandlerName() != null) {
+            SymbolTableKnownActorItem currentKnownActorItem = null;
+            SymbolTableActorItem currentActorItem = null;
+            SymbolTableHandlerItem currentHandler = null;
+            Type currentType = null;
+            SymbolTable currentActor = null;
             try {
-                currentSymbolTable.get(SymbolTableHandlerItem.STARTKEY + msgHandlerCall.getMsgHandlerName().getName());
-            }
-            catch (ItemNotFoundException e) {
-                System.out.println("msgHandler not defined");
+                currentKnownActorItem = (SymbolTableKnownActorItem)(currentActorTable.get(SymbolTableKnownActorItem.STARTKEY + ((Identifier) msgHandlerCall.getInstance()).getName()));
             }
 
+            catch (ItemNotFoundException e){}
+
+            if (currentKnownActorItem != null)
+                currentType = currentKnownActorItem.getType();
+
+            try {
+                currentActorItem = (SymbolTableActorItem) (SymbolTable.root.get(SymbolTableActorItem.STARTKEY + currentType.toString()));
+            }
+
+            catch (ItemNotFoundException e){}
+
+            if (currentActorItem != null)
+                currentActor = currentActorItem.getActorSymbolTable();
+
+            try {
+                currentHandler = (SymbolTableHandlerItem) (currentActor.get(SymbolTableHandlerItem.STARTKEY + ((Identifier) msgHandlerCall.getMsgHandlerName()).getName()));
+            }
+            catch (ItemNotFoundException e){
+                System.out.println("msg handler does not exist");
+            }
         }
 
         if (msgHandlerCall.getArgs() != null) {

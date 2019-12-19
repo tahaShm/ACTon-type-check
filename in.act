@@ -26,8 +26,8 @@ actor D(9) {
 
     }
 
-    msghandler afunc(boolean b, string j) {
-        print(self.ki);
+    msghandler afunc(boolean b) {
+        e.eFunc();
     }
 }
 main {
