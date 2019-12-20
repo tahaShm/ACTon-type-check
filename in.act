@@ -30,6 +30,7 @@ actor D(9) {
         int j;
         int k;
         string s;
+        int x[10];
     }
 
     msghandler initial() {
@@ -39,10 +40,11 @@ actor D(9) {
 
     msghandler dfunc(boolean b) {
         e.eFunc();
+        x[j + s] = 1;
     }
 }
 main {
-    D a1(theController, a):(self.a, self.b);
+    D a1(theController, a):();
     A a():();
     E theController():();
 }

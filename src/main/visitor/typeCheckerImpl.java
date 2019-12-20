@@ -299,6 +299,8 @@ public class typeCheckerImpl implements Visitor {
     public void visit(ArrayCall arrayCall) {
         if (arrayCall.getArrayInstance() != null)
             arrayCall.getArrayInstance().accept(this);
+        if (!(expressionType(arrayCall.getIndex()) instanceof IntType))
+            System.out.println("index must be integer");
     }
 
     @Override
@@ -597,6 +599,9 @@ public class typeCheckerImpl implements Visitor {
                 return returnType;
             }
             returnType = actorVaraccess.getType();
+        }
+        else if (expression instanceof ArrayCall){
+            returnType = new IntType();
         }
         return returnType;
     }
