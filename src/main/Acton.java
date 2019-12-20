@@ -5,6 +5,7 @@ import antlr.actonParser;
 import main.ast.node.Program;
 import main.compileError.CompileErrorException;
 //import main.visitor.astPrinter.ASTPrinter;
+import main.visitor.Errors;
 import main.visitor.Visitor;
 import main.visitor.nameAnalyser.NameAnalyser;
 import main.visitor.typeCheckerImpl;
@@ -27,6 +28,12 @@ public class Acton {
                 throw new CompileErrorException();
             Visitor typeChecker = new typeCheckerImpl();
             typeChecker.visit(program);
+            if (Errors.hasErrors()) {
+                Errors.sortByValue();
+                Errors.getErrorMap().entrySet().forEach(entry->{
+                    System.out.println(entry.getKey());
+                });
+            }
         }
         catch(CompileErrorException compileError){
         }

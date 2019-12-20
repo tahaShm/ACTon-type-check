@@ -1,52 +1,55 @@
-actor E(12) {
-    knownactors {
+actor A(5) {
+	knownactors {
+		A a1;
+		B b1;
+	}
 
-    }
-    actorvars {
-    }
-    msghandler eFunc() {
+	actorvars {
+		int b[5];
+	}
 
-    }
+	msghandler foo() {
+		int d[1];
+		a = self.b;
+		self.b = d;
+		a = b[2];
+		b.bar();
+	}
 }
 
-actor A(12) {
-    knownactors {
+actor B(3){
+	knownactors {
+	}
 
-    }
-    actorvars {
-    }
-    msghandler aFunc() {
+	actorvars {
+	}
 
-    }
+	msghandler bar() {
+		a1 = sender++;
+	}
 }
 
-actor D(9) {
-    knownactors {
-        E e;
-        A a;
-    }
+actor C extends A(4) {
+	knownactors {
+		D d;
+	}
 
-    actorvars {
-        int j;
-        int k;
-        string s;
-        int x[10];
-    }
+	actorvars {
+	}
 
-    msghandler initial() {
-        aa.dfunc();
-
-    }
-
-    msghandler dfunc(boolean b) {
-        e.eFunc();
-        x[j + s] = 1;
-    }
+	msghandler bar(){
+	    int i;
+        for(i=0; i<"10"; i=i+1){
+            2 = 3;
+            i = 2++;
+            i.foo();
+        }
+	}
 }
+
 main {
-    D a1(theController, a):();
-    A a():();
-    E theController():();
+	A a(b1):();
+	A a2(a,c):();
+	A a3(a2,b):();
+	C c():();
 }
-
-
