@@ -531,6 +531,8 @@ public class typeCheckerImpl implements Visitor {
                         } else if (currentKnownActorItem != null) {
                             currentType = currentKnownActorItem.getType();
                         }
+                        else
+                            currentType = new NoType();
 
                         try {
                             currentActorItem = (SymbolTableActorItem) (SymbolTable.root.get(SymbolTableActorItem.STARTKEY + currentType.toString()));
@@ -539,6 +541,8 @@ public class typeCheckerImpl implements Visitor {
 
                         if (currentActorItem != null)
                             currentActor = currentActorItem.getActorSymbolTable();
+                        else
+                            return;
 
                         try {
                             currentHandler = (SymbolTableHandlerItem) (currentActor.get(SymbolTableHandlerItem.STARTKEY + ((Identifier) msgHandlerCall.getMsgHandlerName()).getName()));

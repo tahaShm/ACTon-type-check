@@ -4,7 +4,6 @@
     <list default="true" id="c5fd87f3-e575-4b24-8c16-0a88b6d5e302" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/in.act" beforeDir="false" afterPath="$PROJECT_DIR$/in.act" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Acton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Acton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/visitor/typeCheckerImpl.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,7 +83,8 @@
       <workItem from="1576739201978" duration="28136000" />
       <workItem from="1576841031173" duration="998000" />
       <workItem from="1576859450703" duration="5000" />
-      <workItem from="1576869327710" duration="274000" />
+      <workItem from="1576869327710" duration="712000" />
+      <workItem from="1576870385355" duration="89000" />
     </task>
     <servers />
   </component>

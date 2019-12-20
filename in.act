@@ -1,55 +1,161 @@
-actor A(5) {
-	knownactors {
-		A a1;
-		B b1;
-	}
+actor A extends F(1) {
+    knownactors {
+        C cActor;
+//        E e;
+    }
+    actorvars {
+        int number;
+        string name;
+    }
+    msghandler initial (int a) {
+        number = a;
+        a = number + a;
+        sender.fun();
+        str = number;
+    }
+    msghandler iman() {
+        int c;
+        int d;
+        int fa[4];
+        int sa[4];
+        int ta[5];
+        int ii;
+        int j;
 
-	actorvars {
-		int b[5];
-	}
-
-	msghandler foo() {
-		int d[1];
-		a = self.b;
-		self.b = d;
-		a = b[2];
-		b.bar();
-	}
-}
-
-actor B(3){
-	knownactors {
-	}
-
-	actorvars {
-	}
-
-	msghandler bar() {
-		a1 = sender++;
-	}
-}
-
-actor C extends A(4) {
-	knownactors {
-		D d;
-	}
-
-	actorvars {
-	}
-
-	msghandler bar(){
-	    int i;
-        for(i=0; i<"10"; i=i+1){
-            2 = 3;
-            i = 2++;
-            i.foo();
+        sender.fun();
+        fa = ta;
+        if (sa != ta) {
+            fa = sa;
+            sa = ta;
         }
-	}
+        break;
+        continue;
+        for (; ii < 12 + 3; ) {
+            for (; j < 21; )
+                if (ii < j)
+                    break;
+                else
+                    continue;
+            break;
+        }
+        break;
+        for (; ii < 12 + 3; )
+            for (; j < 21; )
+                if (ii < j)
+                    break;
+                else
+                    continue;
+        continue;
+
+        c = d;
+        c = (d + d) * n;
+        c + c = c;
+        d = 2;
+        d+1 = 2;
+        d*2 = 2;
+        self.number + d = 2;
+        d = d++;
+        d = ++(d+1);
+        d = self.name++;
+        d = self.name;
+        d = !self.name;
+        d = self.name-d;
+        if (d) {
+        }
+//        cActor.function(c, d);
+        self.nima();
+        if (ii + ii)
+            if (ii * ii + ii < ii)
+                if (self.name != "amin")
+                    break;
+                else
+                    print ("amin" + self.name);
+            else
+                print(sf);
+        else
+            print(ii < self.name);
+        print((ii < ii + j) || ("imna" == "nima"));
+    }
+    msghandler nima() {
+        int a;
+        boolean b;
+        string s;
+        a = a + a;
+        a = a * a + a % a;
+        b = number == a;
+        b = (n == s) && b;
+        n = n + n;
+        b = false;
+        b = true;
+        a = 2;
+        a = 3;
+        s = "salam";
+        s = "iman";
+        b = 2;
+        b = "sa";
+        a = true;
+        a = "salam";
+        s = 2;
+        s = false;
+        a = self.n;
+    }
+
+    msghandler testCaller () {
+        int alpha;
+        int x;
+        int y;
+        int arr4[4];
+        int arr5[5];
+
+
+        x = y + y;
+        self.testFunction(alpha, alpha, n);
+        self.testFunction(x < x, y + alpha < y, "arr");
+        sender.s((x < x) + x, ddd, v++, x++, 5);
+        self.testFunction(5 + x + 2 / y % alpha, y + alpha < y, "arr");
+        self.arrayCallFunction(arr4);
+        x.foo();
+    }
+
+    msghandler testFunction (int a, boolean aa, string aaa) {
+    }
+
+    msghandler arrayCallFunction (int a[5]){
+
+    }
+}
+
+actor C extends D(1) {
+    knownactors {}
+    actorvars {}
+}
+
+actor D(1) {
+    knownactors {}
+    actorvars {}
+    msghandler function(int faf, int f) {}
+}
+
+
+actor B (1) {
+    knownactors {
+
+    }
+    actorvars {
+        int str;
+        string n;
+    }
+    msghandler foo() {
+
+    }
+    msghandler foo2(int salam) {
+        int nima;
+    }
 }
 
 main {
-	A a(b1):();
-	A a2(a,c):();
-	A a3(a2,b):();
-	C c():();
+    A a(c):();
+    B b():();
+    C c():();
+//    int ss;
 }
